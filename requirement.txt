@@ -1,0 +1,164 @@
+1. Functional Requirements
+These define what the system must do.
+
+Add Performance Evaluation
+
+The system shall allow users to enter an employee’s name and evaluation notes.
+
+The system shall validate that both fields are not empty before submission.
+
+The system shall display a success message when the evaluation is submitted.
+
+Clear Form After Submission
+
+The system shall clear the input fields after successful submission.
+
+Error Handling
+
+The system shall display warning messages if input fields are empty.
+
+Navigation
+
+The system shall provide a "Back" button to return to the main menu or previous screen.
+
+UI Launch
+
+The system shall open the Performance Evaluation UI in a new window using tk.Toplevel().
+
+✅ 2. Non-Functional Requirements
+These define how well the system performs.
+
+Usability
+
+The interface shall be user-friendly with clear labels and input fields.
+
+Buttons shall be clearly labeled and color-coded for intuitive use.
+
+Performance
+
+The UI shall respond to user actions (submit, back) within 1 second.
+
+Maintainability
+
+The logic and UI code shall be modular to support future enhancements (e.g., saving to database).
+
+Reliability
+
+The system shall handle missing input gracefully without crashing.
+
+Portability
+
+The application shall run on any system that supports Python and Tkinter.
+
+✅ 3. User Requirements
+These define what the user needs or expects.
+
+As a user, I want to:
+
+Enter employee performance evaluations quickly.
+
+Be notified if I forget to fill any required fields.
+
+Receive confirmation that my input was successfully submitted.
+
+Easily navigate back to the main screen.
+
+✅ 4. Business Requirements
+These relate to organizational goals or constraints.
+
+The system shall streamline employee performance evaluation entry in small or mid-size organizations.
+
+The tool shall help HR or managers digitize basic evaluations before they’re integrated into a database or HRMS.
+
+The system should be extendable to support storage in a database or file system.
+
+The application shall be developed as a low-cost, internal HR tool without licensing constraints.
+
+SRS Document.
+Software Requirements Specification (SRS)
+
+Project Title: Employee Performance Evaluation System (Tkinter GUI)
+
+1. Introduction
+
+1.1 PurposeThis document specifies the software requirements for the Employee Performance Evaluation System. The system allows users (typically HR personnel or managers) to enter and manage employee evaluation data through a graphical user interface.
+
+1.2 ScopeThe software will be a desktop application built using Python's Tkinter library. It provides functionalities to submit employee evaluations and basic validations, with potential extensibility for database integration.
+
+1.3 Definitions, Acronyms, and Abbreviations
+
+GUI: Graphical User Interface
+
+SRS: Software Requirements Specification
+
+HR: Human Resources
+
+1.4 OverviewThis document outlines the functional, non-functional, user, and business requirements of the system. It also describes design constraints and system features.
+
+2. Overall Description
+
+2.1 Product PerspectiveThe system is a standalone application intended for internal use by HR departments. It may be extended to connect to a backend database for storing evaluation records.
+
+2.2 Product Functions
+
+Input fields for employee name and performance notes
+
+Submit button for saving evaluations
+
+Basic validation for input completeness
+
+Back button to return to the main menu
+
+Feedback messages (success and error)
+
+2.3 User CharacteristicsUsers are expected to have basic computer literacy. No technical background is required to operate the system.
+
+2.4 Constraints
+
+The application must run on a Python environment with Tkinter installed.
+
+Initially, there will be no persistent storage (unless extended).
+
+2.5 Assumptions and Dependencies
+
+Python and Tkinter must be pre-installed on the host machine.
+
+Database integration is a possible future requirement.
+
+3. Specific Requirements
+
+3.1 Functional Requirements
+
+FR1: The system shall provide a text input for entering the employee name.FR2: The system shall provide a text input for entering evaluation notes.FR3: The system shall validate that both fields are not empty before submission.FR4: The system shall display a success message when valid data is submitted.FR5: The system shall display an error message when inputs are missing.FR6: The system shall clear the fields after successful submission.FR7: The system shall provide a Back button to return to the previous screen.
+
+3.2 Non-Functional Requirements
+
+NFR1: The system shall respond to user input within 1 second.NFR2: The UI shall use a clean and consistent layout.NFR3: The code shall be modular for easy maintenance.NFR4: The application shall run on any OS with Python and Tkinter.NFR5: The system shall handle invalid input gracefully without crashing.
+
+3.3 User Requirements
+
+UR1: Users want a simple form to evaluate employees.UR2: Users need error feedback when input fields are incomplete.UR3: Users want confirmation that their data is submitted successfully.UR4: Users need easy navigation to return to the main menu.
+
+3.4 Business Requirements
+
+BR1: The system shall support digital transformation for HR evaluations.BR2: The application shall reduce paperwork by digitizing employee evaluations.BR3: The application shall be lightweight and cost-effective.BR4: The system shall be easily extensible for future database integration.
+
+4. System Features
+
+Clean and centered Tkinter form UI
+
+Input validation logic
+
+Success and error dialogs via messagebox
+
+Modular design with separation of logic and UI code
+
+Testable logic functions with Python unittest
+
+5. Appendices
+
+Python version: 3.8+
+
+Required Libraries: Tkinter (standard), unittest (standard)
+
+End of Document
