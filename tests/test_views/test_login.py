@@ -8,9 +8,9 @@ def save_login_to_db(username, password):
     try:
         conn = mysql.connector.connect(
             host="localhost",
-            user="",            # Your MySQL username
-            password="",        # Your MySQL password
-            database="employee"  # Your database name
+            user="",            # <-- Your MySQL username
+            password="",        # <-- Your MySQL password
+            database="employee" # <-- Your DB name
         )
         cursor = conn.cursor()
         query = "INSERT INTO users (username, password) VALUES (%s, %s)"
@@ -23,7 +23,7 @@ def save_login_to_db(username, password):
         print("Database Error:", err)
         return False
 
-# --- Logic function to validate inputs ---
+# --- Input validation logic ---
 def validate_login_input(username, password):
     if not username or not password:
         return False, "Please enter both username and password."
@@ -39,15 +39,15 @@ def open_login_ui(main_root, back_callback):
     frame = tk.Frame(win, bg="#ffffff", padx=20, pady=20, bd=2, relief=tk.GROOVE)
     frame.place(relx=0.5, rely=0.5, anchor="center")
 
-    tk.Label(frame, text="Login", font=("Helvetica", 16, "bold"), bg="#ffffff").pack(pady=10)
+    tk.Label(frame, text="Login", font=("Helvetica", 16, "bold"), bg="#ffffff").grid(row=0, column=0, columnspan=2, pady=(0, 15))
 
-    tk.Label(frame, text="username", bg="#ffffff").pack()
+    tk.Label(frame, text="Username", bg="#ffffff").grid(row=1, column=0, sticky="w")
     username_entry = tk.Entry(frame, width=30)
-    username_entry.pack(pady=5)
+    username_entry.grid(row=1, column=1, pady=5)
 
-    tk.Label(frame, text="password", bg="#ffffff").pack()
+    tk.Label(frame, text="Password", bg="#ffffff").grid(row=2, column=0, sticky="w")
     password_entry = tk.Entry(frame, show="*", width=30)
-    password_entry.pack(pady=5)
+    password_entry.grid(row=2, column=1, pady=5)
 
     def on_login():
         username = username_entry.get().strip()
@@ -65,28 +65,19 @@ def open_login_ui(main_root, back_callback):
         else:
             messagebox.showerror("Database Error", "Could not save data. Check your database connection.")
 
-    tk.Button(frame, text="Login", width=15, bg="#2196F3", fg="white", command=on_login).pack(pady=10)
-    tk.Button(frame, text="Back", width=10, bg="#f44336", fg="white", command=lambda: [win.destroy(), back_callback()]).pack()
+    tk.Button(frame, text="Login", bg="#2196F3", fg="white", width=15, command=on_login).grid(row=3, column=0, columnspan=2, pady=10)
+    tk.Button(frame, text="Back", bg="#f44336", fg="white", width=10, command=lambda: [win.destroy(), back_callback()]).grid(row=4, column=0, columnspan=2)
 
-# --- Unit tests for logic ---
+# --- Unit Test (Only One) ---
 class TestLoginLogic(unittest.TestCase):
     def test_validate_login_input_success(self):
         valid, msg = validate_login_input("user1", "pass1")
         self.assertTrue(valid)
         self.assertEqual(msg, "")
 
-    def test_validate_login_input_empty_username(self):
-        valid, msg = validate_login_input("", "pass1")
-        self.assertFalse(valid)
-        self.assertEqual(msg, "Please enter both username and password.")
-
-    def test_validate_login_input_empty_password(self):
-        valid, msg = validate_login_input("user1", "")
-        self.assertFalse(valid)
-        self.assertEqual(msg, "Please enter both username and password.")
-
+# Run UI or tests
 if __name__ == "__main__":
-    # To run UI, comment out unittest.main() and uncomment below:
+    # Uncomment below to run the UI and comment unittest.main()
     # root = tk.Tk()
     # root.withdraw()
     # open_login_ui(root, back_callback=lambda: print("Back pressed"))

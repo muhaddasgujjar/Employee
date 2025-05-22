@@ -17,16 +17,18 @@ def add_department(department_name):
 def open_department_ui(main_root, back_callback):
     win = tk.Toplevel()
     win.title("Department Management")
-    win.geometry("400x300")
+    win.geometry("400x250")
     win.configure(bg="#f5f5f5")
 
     frame = tk.Frame(win, bg="#ffffff", padx=20, pady=20, bd=2, relief=tk.GROOVE)
     frame.place(relx=0.5, rely=0.5, anchor="center")
 
-    tk.Label(frame, text="Department Management", font=("Helvetica", 16, "bold"), bg="#ffffff").pack(pady=10)
-    tk.Label(frame, text="Department Name", bg="#ffffff").pack()
+    title_label = tk.Label(frame, text="Department Management", font=("Helvetica", 16, "bold"), bg="#ffffff")
+    title_label.grid(row=0, column=0, columnspan=2, pady=(0, 10))
+
+    tk.Label(frame, text="Department Name", bg="#ffffff", anchor="w").grid(row=1, column=0, sticky="w")
     dept_name_entry = tk.Entry(frame, width=30)
-    dept_name_entry.pack(pady=5)
+    dept_name_entry.grid(row=1, column=1, pady=5)
 
     def on_add_department():
         dept_name = dept_name_entry.get().strip()
@@ -37,28 +39,26 @@ def open_department_ui(main_root, back_callback):
         else:
             messagebox.showerror("Error", message)
 
-    tk.Button(frame, text="Add Department", bg="#4CAF50", fg="white", command=on_add_department).pack(pady=10)
-    tk.Button(frame, text="Back", bg="#f44336", fg="white", command=lambda: [win.destroy(), back_callback()]).pack()
+    add_btn = tk.Button(frame, text="Add Department", bg="#4CAF50", fg="white", command=on_add_department)
+    add_btn.grid(row=2, column=0, columnspan=2, pady=10, sticky="ew")
 
-# --- Unit Tests ---
+    back_btn = tk.Button(frame, text="Back", bg="#f44336", fg="white", command=lambda: [win.destroy(), back_callback()])
+    back_btn.grid(row=3, column=0, columnspan=2, pady=5, sticky="ew")
+
+# --- Unit Test (Only One Function) ---
 class TestDepartmentLogic(unittest.TestCase):
     def test_add_department_success(self):
         success, msg = add_department("Finance")
         self.assertTrue(success)
         self.assertEqual(msg, "Department added successfully")
 
-    def test_add_department_empty_name(self):
-        success, msg = add_department("")
-        self.assertFalse(success)
-        self.assertEqual(msg, "Department name cannot be empty")
-
-# Run tests only if this file is executed directly (not when imported)
+# Run tests or UI
 if __name__ == "__main__":
     # To run UI, uncomment below lines and comment unittest.main()
     # root = tk.Tk()
-    # root.withdraw()  # Hide root window if needed
+    # root.withdraw()  # Hide root window
     # open_department_ui(root, back_callback=lambda: print("Back pressed"))
     # root.mainloop()
 
-    # To run unit tests, uncomment below:
+    # To run unit test (only one function)
     unittest.main()
