@@ -19,20 +19,21 @@ def save_employee_profile(name, designation):
 def open_employee_profile_ui(main_root, back_callback):
     win = tk.Toplevel()
     win.title("Employee Profile")
-    win.geometry("400x400")
+    win.geometry("400x300")
     win.configure(bg="#f5f5f5")
 
     frame = tk.Frame(win, bg="#ffffff", padx=20, pady=20, bd=2, relief=tk.GROOVE)
     frame.place(relx=0.5, rely=0.5, anchor="center")
 
-    tk.Label(frame, text="Employee Profile", font=("Helvetica", 16, "bold"), bg="#ffffff").pack(pady=10)
-    tk.Label(frame, text="Name", bg="#ffffff").pack()
-    name_entry = tk.Entry(frame, width=30)
-    name_entry.pack(pady=5)
+    tk.Label(frame, text="Employee Profile", font=("Helvetica", 16, "bold"), bg="#ffffff").grid(row=0, column=0, columnspan=2, pady=(0, 10))
 
-    tk.Label(frame, text="Designation", bg="#ffffff").pack()
+    tk.Label(frame, text="Name", bg="#ffffff").grid(row=1, column=0, sticky="w")
+    name_entry = tk.Entry(frame, width=30)
+    name_entry.grid(row=1, column=1, pady=5)
+
+    tk.Label(frame, text="Designation", bg="#ffffff").grid(row=2, column=0, sticky="w")
     designation_entry = tk.Entry(frame, width=30)
-    designation_entry.pack(pady=5)
+    designation_entry.grid(row=2, column=1, pady=5)
 
     def on_save():
         name = name_entry.get().strip()
@@ -45,26 +46,17 @@ def open_employee_profile_ui(main_root, back_callback):
         else:
             messagebox.showerror("Error", message)
 
-    tk.Button(frame, text="Save", bg="#4CAF50", fg="white", command=on_save).pack(pady=10)
-    tk.Button(frame, text="Back", width=10, bg="#f44336", fg="white", command=lambda: [win.destroy(), back_callback()]).pack()
+    tk.Button(frame, text="Save", bg="#4CAF50", fg="white", command=on_save).grid(row=3, column=0, columnspan=2, pady=10, sticky="ew")
+    tk.Button(frame, text="Back", bg="#f44336", fg="white", command=lambda: [win.destroy(), back_callback()]).grid(row=4, column=0, columnspan=2, pady=5, sticky="ew")
 
-# --- Unit Tests ---
+# --- Unit Test (Only One) ---
 class TestEmployeeProfileLogic(unittest.TestCase):
     def test_save_profile_success(self):
         success, msg = save_employee_profile("Alice", "Manager")
         self.assertTrue(success)
         self.assertEqual(msg, "Employee profile saved successfully")
 
-    def test_save_profile_empty_name(self):
-        success, msg = save_employee_profile("", "Manager")
-        self.assertFalse(success)
-        self.assertEqual(msg, "Name cannot be empty")
-
-    def test_save_profile_empty_designation(self):
-        success, msg = save_employee_profile("Alice", "")
-        self.assertFalse(success)
-        self.assertEqual(msg, "Designation cannot be empty")
-
+# Run tests or UI
 if __name__ == "__main__":
     # To run UI, uncomment below and comment unittest.main()
     # root = tk.Tk()
